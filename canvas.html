@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Junta — Business Model Canvas</title>
+  <!-- Cinzel solo desde Google Fonts (no existe versión local) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Space Grotesk"', 'sans-serif'],
+            serif: ['Cinzel', 'serif'],
+          },
+          colors: {
+            junta: {
+              950: '#11161d',
+              900: '#1d242e',
+              800: '#2b3543',
+              700: '#3c4a5c',
+              600: '#52637a',
+              accent:      '#d97706',
+              accentHover: '#b45309',
+              accentLight: '#fef3c7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'Space Grotesk';
+      src: url('assets/fonts/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ── Impresión ─────────────────────────────────────────── */
+    @media print {
+      @page { size: A4 landscape; margin: 8mm; }
+      body  { background: white !important; color: black !important; font-size: 10px !important; }
+      .no-print { display: none !important; }
+      .print-grid {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 4px !important;
+        height: auto !important;
+      }
+      .print-col-double  { grid-row: span 2 !important; }
+      .print-row-bottom  { grid-column: span 2.5 !important; display: grid !important; }
+      .card-canvas {
+        border: 1px solid #cbd5e1 !important;
+        background: white !important;
+        color: #0f172a !important;
+        box-shadow: none !important;
+        border-radius: 4px !important;
+        padding: 6px !important;
+        page-break-inside: avoid;
+      }
+      .card-title  { color: #1e293b !important; font-size: 11px !important; border-bottom: 1px solid #e2e8f0 !important; padding-bottom: 2px !important; }
+      .card-prompt { display: none !important; }
+      .item-text   { color: #334155 !important; }
+      .btn-action-card, .add-item-form { display: none !important; }
+    }
+
+    /* ── Scrollbar ─────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track  { background: #1d242e; }
+    ::-webkit-scrollbar-thumb  { background: #4b5563; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #d97706; }
+
+    /* ── Galería ───────────────────────────────────────────── */
+    .gallery-photo { transition: transform 0.3s ease; }
+    .gallery-photo:hover { transform: scale(1.03); }
+  </style>
+</head>
+<body class="bg-junta-950 text-slate-100 font-sans min-h-full flex flex-col selection:bg-junta-accent selection:text-white">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HEADER
+  ════════════════════════════════════════════════════════ -->
+  <header class="no-print bg-junta-900 border-b border-junta-800 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo/isotipo-blanco.png" alt="La Junta" class="w-10 h-10 object-contain flex-shrink-0">
+      <div>
+        <h1 class="font-serif text-xl md:text-2xl tracking-widest text-slate-100 font-extrabold flex items-center gap-2">
+          LA JUNTA
+          <span class="text-xs bg-junta-accent text-junta-950 font-sans font-semibold px-2 py-0.5 rounded tracking-normal">
+            BUSINESS MODEL CANVAS
+          </span>
+        </h1>
+        <p class="text-xs text-slate-400">Centro de formación, entrenamiento y refugio de escalada · Puerto Varas</p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+
+      <!-- Ver Espacio (abre galería) -->
+      <button onclick="openGallery()"
+        class="px-3.5 py-2 bg-junta-800 hover:bg-junta-700 text-slate-200 font-semibold text-sm rounded border border-junta-700 transition-all duration-150 flex items-center gap-1.5"
+        title="Ver renders y fotografías del espacio">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.82V15.18a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+        Ver Espacio
+      </button>
+
+      <!-- PDF / Imprimir -->
+      <button onclick="window.print()"
+        class="px-4 py-2 bg-junta-accent hover:bg-junta-accentHover text-junta-950 font-bold text-sm rounded shadow transition-all duration-150 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+        </svg>
+        Guardar PDF / Imprimir
+      </button>
+
+      <!-- Exportar JSON -->
+      <button onclick="exportJSON()"
+        class="px-3.5 py-2 bg-junta-800 hover:bg-junta-700 text-slate-200 font-semibold text-sm rounded border border-junta-700 transition-all duration-150 flex items-center gap-1.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        Exportar Datos
+      </button>
+
+      <!-- Importar JSON -->
+      <button id="importBtn" onclick="triggerImport()"
+        class="px-3.5 py-2 bg-junta-800 hover:bg-junta-700 text-slate-200 font-semibold text-sm rounded border border-junta-700 transition-all duration-150 flex items-center gap-1.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+        Importar Datos
+      </button>
+      <input type="file" id="fileImporter" class="hidden" accept=".json" onchange="importJSON(event)">
+
+      <!-- Restablecer -->
+      <button onclick="resetToDefault()"
+        class="px-3.5 py-2 bg-red-950/40 hover:bg-red-900/40 text-red-300 font-semibold text-sm rounded border border-red-900/50 transition-all duration-150 flex items-center gap-1.5"
+        title="Restaurar a la propuesta original de La Junta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 15H19" />
+        </svg>
+        Restablecer Base
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TOAST NOTIFICATION
+  ════════════════════════════════════════════════════════ -->
+  <div id="toast"
+    class="no-print fixed bottom-5 right-5 z-50 bg-junta-accent text-junta-950 font-bold px-4 py-3 rounded-lg shadow-2xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+    </svg>
+    <span id="toast-msg">Cambios guardados</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MODAL — GALERÍA DE ESPACIOS
+  ════════════════════════════════════════════════════════ -->
+  <div id="gallery-modal"
+    class="no-print hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+    onclick="closeGalleryOnBackdrop(event)">
+
+    <div id="gallery-container"
+      class="bg-junta-900 rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto border border-junta-800 shadow-2xl">
+
+      <!-- Cabecera del modal -->
+      <div class="sticky top-0 z-10 bg-junta-900 border-b border-junta-800 flex items-center justify-between px-6 py-4">
+        <div class="flex items-center gap-3">
+          <img src="assets/logo/isotipo-blanco.png" alt="" class="w-8 h-8 object-contain">
+          <div>
+            <h2 class="font-serif text-xl text-slate-100 tracking-wide">Espacios La Junta</h2>
+            <p class="text-xs text-slate-400">Puerto Varas · Renders 3D y Fotografías</p>
+          </div>
+        </div>
+        <button onclick="closeGallery()"
+          class="text-slate-400 hover:text-white hover:bg-junta-800 p-2 rounded-lg transition" title="Cerrar">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-8">
+
+        <!-- Fotografías del proyecto -->
+        <section>
+          <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Fotografías del Proyecto</p>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl overflow-hidden aspect-video bg-junta-800">
+              <img src="assets/fotos/foto-01.jpg" alt="La Junta — Espacio 1"
+                class="gallery-photo w-full h-full object-cover">
+            </div>
+            <div class="rounded-xl overflow-hidden aspect-video bg-junta-800">
+              <img src="assets/fotos/foto-07.jpg" alt="La Junta — Espacio 2"
+                class="gallery-photo w-full h-full object-cover">
+            </div>
+          </div>
+        </section>
+
+        <!-- Renders 3D -->
+        <section>
+          <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Renders 3D del Proyecto</p>
+          <div class="grid grid-cols-2 gap-3">
+
+            <div class="rounded-xl overflow-hidden bg-junta-800 border border-junta-700">
+              <video class="w-full aspect-video" controls preload="none" playsinline>
+                <source src="assets/videos/render-escalada.mp4" type="video/mp4">
+              </video>
+              <p class="text-xs text-slate-400 px-4 py-2.5 font-medium tracking-wide">Zona de Escalada</p>
+            </div>
+
+            <div class="rounded-xl overflow-hidden bg-junta-800 border border-junta-700">
+              <video class="w-full aspect-video" controls preload="none" playsinline>
+                <source src="assets/videos/render-edificio.mp4" type="video/mp4">
+              </video>
+              <p class="text-xs text-slate-400 px-4 py-2.5 font-medium tracking-wide">Edificio / Exterior</p>
+            </div>
+
+            <div class="rounded-xl overflow-hidden bg-junta-800 border border-junta-700">
+              <video class="w-full aspect-video" controls preload="none" playsinline>
+                <source src="assets/videos/render-camara.mp4" type="video/mp4">
+              </video>
+              <p class="text-xs text-slate-400 px-4 py-2.5 font-medium tracking-wide">Recorrido Virtual</p>
+            </div>
+
+            <div class="rounded-xl overflow-hidden bg-junta-800 border border-junta-700">
+              <video class="w-full aspect-video" controls preload="none" playsinline>
+                <source src="assets/videos/render-terraza.mp4" type="video/mp4">
+              </video>
+              <p class="text-xs text-slate-400 px-4 py-2.5 font-medium tracking-wide">Terraza y Refugio</p>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CANVAS WORKSPACE
+  ════════════════════════════════════════════════════════ -->
+  <main class="flex-1 p-4 md:p-6 flex flex-col justify-center max-w-[1700px] w-full mx-auto">
+
+    <!-- Instrucción de interacción -->
+    <div class="no-print mb-4 bg-junta-900 border-l-4 border-junta-accent p-3 rounded-r-lg text-slate-300 text-xs flex justify-between items-center gap-4">
+      <p>
+        <strong>¡Canvas Interactivo!</strong> Edita cada bloque haciendo clic en el lápiz
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 inline" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+        </svg>.
+        Modifica las viñetas, agrégalas o elimínalas. Los cambios se guardan automáticamente en este navegador.
+      </p>
+      <span class="text-slate-500 whitespace-nowrap">Puerto Varas · Clima de Montaña</span>
+    </div>
+
+    <!-- GRID DEL CANVAS -->
+    <div id="canvas-grid" class="print-grid grid grid-cols-1 md:grid-cols-5 gap-3 lg:gap-4 flex-1">
+
+      <!-- ─────────────────────────────────────────
+           7. SOCIOS CLAVE (2 filas en desktop)
+      ───────────────────────────────────────── -->
+      <div id="block-partners"
+        class="print-col-double card-canvas bg-junta-900 border border-junta-800 rounded-xl p-4 shadow-lg hover:border-slate-700 transition-all duration-200 flex flex-col md:row-span-2">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="card-title text-sm font-bold text-slate-200 tracking-wide flex items-center gap-2 uppercase">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-junta-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            7. Socios Clave
+          </h3>
+          <button onclick="toggleEdit('partners')" class="btn-action-card text-slate-400 hover:text-junta-accent p-1 rounded hover:bg-junta-800 transition" title="Editar">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+          </button>
+        </div>
+        <p class="card-prompt text-[10px] text-slate-400 mb-3 leading-relaxed">¿Quiénes son nuestros socios y proveedores estratégicos para reducir riesgos?</p>
+        <div class="flex-1 overflow-y-auto pr-1">
+          <ul id="list-partners" class="space-y-2 text-xs md:text-[13px] text-slate-300"></ul>
+          <div id="editor-partners" class="hidden space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────
+           COLUMNA 2: Actividades (arriba) + Recursos (abajo)
+      ───────────────────────────────────────── -->
+      <div class="flex flex-col gap-3 lg:gap-4 md:row-span-2">
+
+        <!-- 5. ACTIVIDADES CLAVE -->
+        <div id="block-activities"
+          class="card-canvas bg-junta-900 border border-junta-800 rounded-xl p-4 shadow-lg hover:border-slate-700 transition-all duration-200 flex flex-col flex-1">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="card-title text-sm font-bold text-slate-200 tracking-wide flex items-center gap-2 uppercase">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-junta-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              5. Actividades Clave
+            </h3>
+            <button onclick="toggleEdit('activities')" class="btn-action-card text-slate-400 hover:text-junta-accent p-1 rounded hover:bg-junta-800 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+            </button>
+          </div>
+          <p class="card-prompt text-[10px] text-slate-400 mb-3 leading-relaxed">¿Qué acciones fundamentales requiere nuestra propuesta de valor?</p>
+          <div class="flex-1 overflow-y-auto pr-1">
+            <ul id="list-activities" class="space-y-2 text-xs md:text-[13px] text-slate-300"></ul>
+            <div id="editor-activities" class="hidden space-y-2"></div>
+          </div>
+        </div>
+
+        <!-- 6. RECURSOS CLAVE -->
+        <div id="block-resources"
+          class="card-canvas bg-junta-900 border border-junta-800 rounded-xl p-4 shadow-lg hover:border-slate-700 transition-all duration-200 flex flex-col flex-1">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="card-title text-sm font-bold text-slate-200 tracking-wide flex items-center gap-2 uppercase">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-junta-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+              6. Recursos Clave
+            </h3>
+            <button onclick="toggleEdit('resources')" class="btn-action-card text-slate-400 hover:text-junta-accent p-1 rounded hover:bg-junta-800 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+            </button>
+          </div>
+          <p class="card-prompt text-[10px] text-slate-400 mb-3 leading-relaxed">¿Qué activos físicos, humanos, intelectuales o financieros son indispensables?</p>
+          <div class="flex-1 overflow-y-auto pr-1">
+            <ul id="list-resources" class="space-y-2 text-xs md:text-[13px] text-slate-300"></ul>
+            <div id="editor-resources" class="hidden space-y-2"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ─────────────────────────────────────────
+           2. PROPUESTA DE VALOR (2 filas, destacada)
+      ───────────────────────────────────────── -->
+      <div id="block-value"
+        class="print-col-double card-canvas bg-junta-900 border-2 border-junta-accent rounded-xl p-4 shadow-xl hover:border-amber-500 transition-all duration-200 flex flex-col md:row-span-2 relative">
+        <span class="no-print absolute -top-2.5 right-4 bg-junta-accent text-junta-950 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Centro de la Estrategia</span>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="card-title text-sm font-bold text-amber-500 tracking-wide flex items-center gap-2 uppercase">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-junta-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+            2. Propuestas de Valor
+          </h3>
+          <button onclick="toggleEdit('value')" class="btn-action-card text-slate-400 hover:text-junta-accent p-1 rounded hover:bg-junta-800 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+          </button>
+        </div>
+        <p class="card-prompt text-[10px] text-slate-400 mb-3 leading-relaxed">¿Qué propuesta de valor única entregamos para resolver el dolor del cliente?</p>
+        <div class="flex-1 overflow-y-auto pr-1">
+          <ul id="list-value" class="space-y-2 text-xs md:text-[13px] text-slate-300"></ul>
+          <div id="editor-value" class="hidden space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────
+           COLUMNA 4: Relaciones (arriba) + Canales (abajo)
+      ───────────────────────────────────────── -->
+      <div class="flex flex-col gap-3 lg:gap-4 md:row-span-2">
+
+        <!-- 3. RELACIONES CON CLIENTES -->
+        <div id="block-relations"
+          class="card-canvas bg-junta-900 border border-junta-800 rounded-xl p-4 shadow-lg hover:border-slate-700 transition-all duration-200 flex flex-col flex-1">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="card-title text-sm font-bold text-slate-200 tracking-wide flex items-center gap-2 uppercase">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-junta-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              3. Relación con Clientes
+            </h3>
+            <button onclick="toggleEdit('relations')" class="btn-action-card text-slate-400 hover:text-junta-accent p-1 rounded hover:bg-junta-800 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+            </button>
+          </div>
+          <p class="card-prompt text-[10px] text-slate-400 mb-3 leading-relaxed">¿Cómo capturamos, interactuamos y fidelizamos a los escaladores?</p>
+          <div class="flex-1 overflow-y-auto pr-1">
+            <ul id="list-relations" class="space-y-2 text-xs md:text-[13px] text-slate-300"></ul>
+            <div id="editor-relations" class="hidden space-y-2"></div>
+          </div>
+        </div>
+
+        <!-- 4. CANALES -->
+        <div id="block-channels"
+          class="card-canvas bg-junta-900 border border-junta-800 rounded-xl p-4 shadow-lg hover:border-slate-700 transition-all duration-200 flex flex-col flex-1">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="card-title text-sm font-bold text-slate-200 tracking-wide flex items-center gap-2 uppercase">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-junta-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              4. Canales
+            </h3>
+            <button onclick="toggleEdit('channels')" class="btn-action-card text-slate-400 hover:text-junta-accent p-1 rounded hover:bg-junta-800 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+            </button>
+          </div>
+          <p class="card-prompt text-[10px] text-slate-400 mb-3 leading-relaxed">¿A través de qué canales digitales y físicos nos comunicamos y servimos?</p>
+          <div class="flex-1 overflow-y-auto pr-1">
+            <ul id="list-channels" class="space-y-2 text-xs md:text-[13px] text-slate-300"></ul>
+            <div id="editor-channels" class="hidden space-y-2"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ─────────────────────────────────────────
+           1. SEGMENTOS DE CLIENTES (2 filas)
+      ───────────────────────────────────────── -->
+      <div id="block-segments"
+        class="print-col-double card-canvas bg-junta-900 border border-junta-800 rounded-xl p-4 shadow-lg hover:border-slate-700 transition-all duration-200 flex flex-col md:row-span-2">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="card-title text-sm font-bold text-slate-200 tracking-wide flex items-center gap-2 uppercase">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-junta-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            1. Segmentos de Clientes
+          </h3>
+          <button onclick="toggleEdit('segments')" class="btn-action-card text-slate-400 hover:text-junta-accent p-1 rounded hover:bg-junta-800 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+          </button>
+        </div>
+        <p class="card-prompt text-[10px] text-slate-400 mb-3 leading-relaxed">¿Para quiénes estamos creando valor prioritariamente en el sur?</p>
+        <div class="flex-1 overflow-y-auto pr-1">
+          <ul id="list-segments" class="space-y-2 text-xs md:text-[13px] text-slate-300"></ul>
+          <div id="editor-segments" class="hidden space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────
+           8. ESTRUCTURA DE COSTOS (fila inferior, mitad izquierda)
+      ───────────────────────────────────────── -->
+      <div id="block-costs"
+        class="print-row-bottom card-canvas bg-junta-900 border border-junta-800 rounded-xl p-4 shadow-lg hover:border-slate-700 transition-all duration-200 flex flex-col md:col-span-2">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="card-title text-sm font-bold text-slate-200 tracking-wide flex items-center gap-2 uppercase">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-junta-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+            8. Estructura de Costos
+          </h3>
+          <button onclick="toggleEdit('costs')" class="btn-action-card text-slate-400 hover:text-junta-accent p-1 rounded hover:bg-junta-800 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+          </button>
+        </div>
+        <p class="card-prompt text-[10px] text-slate-400 mb-3 leading-relaxed">¿Cuáles son los costos operativos más importantes de nuestra estructura y deuda?</p>
+        <div class="flex-1 overflow-y-auto pr-1">
+          <ul id="list-costs" class="space-y-2 text-xs md:text-[13px] text-slate-300"></ul>
+          <div id="editor-costs" class="hidden space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────
+           9. FUENTES DE INGRESOS (fila inferior, mitad derecha)
+      ───────────────────────────────────────── -->
+      <div id="block-revenues"
+        class="print-row-bottom card-canvas bg-junta-900 border border-junta-800 rounded-xl p-4 shadow-lg hover:border-slate-700 transition-all duration-200 flex flex-col md:col-span-3">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="card-title text-sm font-bold text-slate-200 tracking-wide flex items-center gap-2 uppercase">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-junta-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            9. Fuentes de Ingresos
+          </h3>
+          <button onclick="toggleEdit('revenues')" class="btn-action-card text-slate-400 hover:text-junta-accent p-1 rounded hover:bg-junta-800 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+          </button>
+        </div>
+        <p class="card-prompt text-[10px] text-slate-400 mb-3 leading-relaxed">¿Cómo, cuánto y bajo qué planes recurrente o diario ingresará el capital?</p>
+        <div class="flex-1 overflow-y-auto pr-1">
+          <ul id="list-revenues" class="space-y-2 text-xs md:text-[13px] text-slate-300"></ul>
+          <div id="editor-revenues" class="hidden space-y-2"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════════ -->
+  <footer class="no-print mt-auto bg-junta-900 border-t border-junta-800 px-6 py-4 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+
+    <!-- Logo horizontal -->
+    <div class="flex items-center gap-3">
+      <img src="assets/logo/logo-blanco-horizontal.png" alt="La Junta" class="h-7 object-contain opacity-60">
+      <span>© 2026</span>
+    </div>
+
+    <!-- Fundadores -->
+    <div class="flex items-center gap-5">
+      <div class="flex items-center gap-2.5">
+        <img src="assets/fotos/foto-paul.jpg" alt="Paul Behrens"
+          class="w-8 h-8 rounded-full object-cover ring-1 ring-junta-accent/50 flex-shrink-0">
+        <div class="leading-tight">
+          <p class="text-slate-300 font-semibold text-[11px]">Paul Behrens</p>
+          <p class="text-slate-600 text-[10px]">CEO · RevOps</p>
+        </div>
+      </div>
+      <div class="w-px h-6 bg-junta-800 flex-shrink-0"></div>
+      <div class="flex items-center gap-2.5">
+        <img src="assets/fotos/foto-juan.jpg" alt="Juan Rozas"
+          class="w-8 h-8 rounded-full object-cover ring-1 ring-junta-accent/50 flex-shrink-0">
+        <div class="leading-tight">
+          <p class="text-slate-300 font-semibold text-[11px]">Juan Rozas</p>
+          <p class="text-slate-600 text-[10px]">COO · Business Dev</p>
+        </div>
+      </div>
+    </div>
+
+    <span class="text-[11px] text-slate-400 italic hidden md:block">"Entrenar con continuidad, superando la intermitencia del clima."</span>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Datos Base ─────────────────────────────────────────────
+    const defaultCanvasData = {
+      segments: [
+        "**Comunidad de Cordada (Escaladores Experimentados):** Residentes huérfanos de infraestructura técnica y método en el sur. Afectados por la intermitencia del clima lluvioso (+130 días/año).",
+        "**Entusiastas del Outdoor / Deportistas Activos:** Personas amantes de la naturaleza y el deporte de 7 a 60 años que buscan mantener acondicionamiento funcional en seco.",
+        "**Familias y Colegios (Segmento Kids):** Padres deportistas que necesitan actividades extraprogramáticas formativas, seguras y guiadas para sus hijos en la zona."
+      ],
+      value: [
+        "**La Junta** es un centro de formación y entrenamiento que permite entrenar escalada con continuidad en un contexto donde eso hoy no es posible.",
+        "**Infraestructura Blindada:** 200 m² de boulder y spraywall diseñados para operar todo el año a resguardo del hostil clima del sur (con proyección de torre de rutas de 17m).",
+        "**Formación Técnica con Metodología:** Academia La Junta con intención pedagógica clara, graduación rigurosa de rutas y progresión real para escaladores.",
+        "**Ecosistema Refugio de Montaña:** Integra entrenamiento físico de alto nivel con la vida cotidiana (cafetería de especialidad y cowork aislados acústicamente).",
+        "**Diferenciador Radical:** No competimos contra otros muros; competimos contra **la intermitencia, la falta de método y la fricción** de elegir entre entrenar o vivir."
+      ],
+      relations: [
+        "**Arquetipo de 'El Guía':** Trato cercano, profesional, apasionado y transparente que acompaña el proceso individual de cada alumno.",
+        "**Estrategia de Atracción:** Impulsada por el boca a boca de la comunidad de montaña local combinada con una **sólida estrategia en medios digitales**.",
+        "**Cultura de Cordada:** Dinámicas donde el escalador experto cuida y guía al principiante, fomentando el sentido de refugio seguro.",
+        "**Progreso Físico Guiado:** Talleres continuos, seguimiento técnico y rotación continua de bloques por el equipo de abridores (*setters*)."
+      ],
+      channels: [
+        "**Punto Físico Estratégico:** Acceso Norte de Puerto Varas (eje de alto flujo que une parcelaciones, condominios en expansión y comunas de la cuenca).",
+        "**Canales Digitales (Instagram y Web):** Contenido técnico enfocado en el 'oficio' (sin clichés de IA) y portal para venta de membresías de fundadores.",
+        "**Entrega de Servicio 100% Presencial:** Entrenamientos presenciales en el centro para potenciar la conexión física, sumando **eventuales salidas a roca guiadas** directamente con alumnos de la academia."
+      ],
+      activities: [
+        "**Apertura Profesional de Rutas (Route Setting):** Rutas y bloques variados, con intención pedagógica rigurosa y rotación programada.",
+        "**Academia y Escuela:** Ejecución de programas metodológicos, entrenamientos dirigidos para adultos y talleres extraprogramáticos para colegios.",
+        "**Generación de Comunidad (Extremadamente Clave):** Diseño de dinámicas sociales constantes, hitos deportivos, encuentros comunitarios y activaciones locales para tejer el nexo identitario del espacio.",
+        "**Gestión y Seguridad de la Infraestructura:** Mantención de un ambiente limpio, seguro bajo normas europeas de seguridad y un café de primer nivel."
+      ],
+      resources: [
+        "**Infraestructura Física Resistente:** Espacio blindado contra tormentas, muros de boulder equipados y colchonetas de alta absorción certificadas.",
+        "**Presas de Alta Gama:** Sets importados y volúmenes ergonómicos que estimulan la biomecánica correcta del movimiento.",
+        "**Talento Humano:** Profesores con metodología demostrada, setters profesionales y anfitriones de sala.",
+        "**Capital Intelectual:** Registro de marca INAPI, base de datos de usuarios de la zona de Los Lagos y experiencia acumulada de más de 15 años."
+      ],
+      partners: [
+        "**Equipo Fundador y Mentores:** Liderado por Paul Behrens (CEO/RevOps) y Juan Rozas (COO/BD), junto a la asesoría técnica de referentes comerciales y de escalada en Chile.",
+        "**Auspiciadores Outdoor de Primera Línea:** Alianzas con **grandes marcas internacionales** de indumentaria y equipo de montaña.",
+        "**Clubes Deportivos Regionales:** Sinergia directa con el **Club Monesca** (el más importante) y la apertura/convenios con los demás clubes de montaña de la región.",
+        "**Proveedores y Productores Locales:** Alianzas comerciales con tostadores de café y proveedores gastronómicos de la zona para abastecer la cafetería.",
+        "**Establecimientos Educacionales:** Colegios locales para externalización de talleres y salidas pedagógicas guiadas en horario valle."
+      ],
+      costs: [
+        "**1. Arriendo / Ocupación (Costo más relevante):** Costo prioritario para asegurar la ubicación estratégica del centro en el Acceso Norte de Puerto Varas.",
+        "**2. Remuneraciones del Staff:** Personal administrativo, anfitriones, instructores de academia y abridores de rutas.",
+        "**3. Servicio de la Deuda (Crédito):** Retorno de la inversión y amortizaciones financieras del financiamiento inicial de puesta en marcha ($230 MM).",
+        "**4. Insumos y Operacionales:** Costos de cafetería, renovación periódica de presas y campañas de marketing estacionales de invierno/otoño."
+      ],
+      revenues: [
+        "**Membresías de Escalada (Core - 80%):** Planes recurrentes (proyectado mensual de aprox. **$63.000 CLP**) que estabilizan los ingresos, tickets diarios de acceso libre (ej. **$8.000 CLP** hora peak) y cursos formativos dirigidos.",
+        "**Convenio Colegios (10%):** Mensualidades fijas por alumno en talleres externalizados (**$30.000 alumno/mes**) y cobros por salidas pedagógicas grupales.",
+        "**Cafetería y Refugio (10%):** Venta de café de especialidad, pastelería y alimentación saludable para socios, trabajadores del cowork y apoderados.",
+        "**Rental & Eventos Especiales:** Alquiler de equipo de escalada, eventos infantiles y activaciones corporativas los fines de semana en horarios de bajo flujo."
+      ]
+    };
+
+    let canvasData = {};
+
+    // ── Inicialización ─────────────────────────────────────────
+    window.onload = function () {
+      const saved = localStorage.getItem('la_junta_canvas_data_v1');
+      if (saved) {
+        try { canvasData = JSON.parse(saved); }
+        catch (e) { canvasData = JSON.parse(JSON.stringify(defaultCanvasData)); }
+      } else {
+        canvasData = JSON.parse(JSON.stringify(defaultCanvasData));
+      }
+      renderAllBlocks();
+    };
+
+    // ── Persistencia ───────────────────────────────────────────
+    function saveAndNotify(msg = "Cambios guardados automáticamente") {
+      localStorage.setItem('la_junta_canvas_data_v1', JSON.stringify(canvasData));
+      showToast(msg);
+    }
+
+    function showToast(message) {
+      const toast   = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    // ── Render ─────────────────────────────────────────────────
+    function renderBlock(key) {
+      const ul = document.getElementById(`list-${key}`);
+      ul.innerHTML = '';
+      canvasData[key].forEach((item) => {
+        const li = document.createElement('li');
+        li.className = "flex items-start gap-2 leading-relaxed mb-1.5 py-0.5";
+        const formatted = item.replace(/\*\*(.*?)\*\*/g, '<strong class="text-junta-accent font-semibold">$1</strong>');
+        li.innerHTML = `
+          <span class="text-junta-accent select-none mt-1 text-[11px] flex-shrink-0">✦</span>
+          <span class="item-text flex-1">${formatted}</span>
+        `;
+        ul.appendChild(li);
+      });
+    }
+
+    function renderAllBlocks() {
+      ['partners','activities','resources','value','relations','channels','segments','costs','revenues']
+        .forEach(renderBlock);
+    }
+
+    // ── Edición ────────────────────────────────────────────────
+    function toggleEdit(key) {
+      const listEl   = document.getElementById(`list-${key}`);
+      const editorEl = document.getElementById(`editor-${key}`);
+
+      if (!editorEl.classList.contains('hidden')) {
+        saveBlockEdits(key);
+        editorEl.classList.add('hidden');
+        listEl.classList.remove('hidden');
+        return;
+      }
+
+      listEl.classList.add('hidden');
+      editorEl.classList.remove('hidden');
+      editorEl.innerHTML = '';
+
+      const itemsContainer = document.createElement('div');
+      itemsContainer.className = "space-y-2 max-h-[220px] overflow-y-auto pr-1";
+
+      canvasData[key].forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = "flex items-start gap-1.5 bg-junta-950 p-1.5 rounded border border-junta-800";
+        div.innerHTML = `
+          <textarea class="flex-1 bg-transparent text-slate-200 text-xs focus:ring-1 focus:ring-junta-accent outline-none resize-none" rows="2" onchange="updateItemValue('${key}', ${index}, this.value)">${item}</textarea>
+          <button onclick="removeItem('${key}', ${index})" class="text-red-400 hover:text-red-500 hover:bg-red-900/30 p-1 rounded flex-shrink-0" title="Eliminar viñeta">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        `;
+        itemsContainer.appendChild(div);
+      });
+
+      editorEl.appendChild(itemsContainer);
+
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = "pt-2 flex items-center justify-between gap-2 border-t border-junta-800 add-item-form";
+      actionsDiv.innerHTML = `
+        <button onclick="addNewItem('${key}')" class="text-xs bg-junta-700 hover:bg-junta-600 text-slate-100 px-2 py-1 rounded flex items-center gap-1">
+          + Agregar punto
+        </button>
+        <button onclick="toggleEdit('${key}')" class="text-xs bg-junta-accent hover:bg-junta-accentHover text-junta-950 font-bold px-2.5 py-1 rounded">
+          Listo / Cerrar
+        </button>
+      `;
+      editorEl.appendChild(actionsDiv);
+    }
+
+    function updateItemValue(key, index, val) { canvasData[key][index] = val; }
+
+    function removeItem(key, index) {
+      canvasData[key].splice(index, 1);
+      toggleEdit(key);
+      toggleEdit(key);
+    }
+
+    function addNewItem(key) {
+      canvasData[key].push("Nuevo punto editable... Usa **negrita** para resaltar.");
+      toggleEdit(key);
+      toggleEdit(key);
+    }
+
+    function saveBlockEdits(key) {
+      renderBlock(key);
+      saveAndNotify("Bloque guardado correctamente");
+    }
+
+    // ── Restablecer ────────────────────────────────────────────
+    function resetToDefault() {
+      if (confirm('¿Restablecer todo el Canvas a los datos originales de La Junta? Perderás cualquier cambio manual.')) {
+        canvasData = JSON.parse(JSON.stringify(defaultCanvasData));
+        localStorage.removeItem('la_junta_canvas_data_v1');
+        renderAllBlocks();
+        showToast("Canvas restablecido al original con éxito");
+      }
+    }
+
+    // ── Exportar / Importar JSON ───────────────────────────────
+    function exportJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(canvasData, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", "canvas_la_junta.json");
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast("Datos exportados en archivo JSON");
+    }
+
+    function triggerImport() { document.getElementById('fileImporter').click(); }
+
+    function importJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          const required = ['partners','activities','resources','value','relations','channels','segments','costs','revenues'];
+          if (required.every(k => Array.isArray(imported[k]))) {
+            canvasData = imported;
+            renderAllBlocks();
+            saveAndNotify("Datos importados con éxito");
+          } else {
+            alert("El archivo JSON no tiene la estructura correcta de un Business Model Canvas.");
+          }
+        } catch {
+          alert("Error al leer el archivo. Asegúrate de que sea un JSON válido.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // ── Galería ────────────────────────────────────────────────
+    function openGallery() {
+      document.getElementById('gallery-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGallery() {
+      document.getElementById('gallery-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+      document.querySelectorAll('#gallery-modal video').forEach(v => v.pause());
+    }
+
+    function closeGalleryOnBackdrop(event) {
+      if (event.target === document.getElementById('gallery-modal')) closeGallery();
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGallery(); });
+  </script>
+</body>
+</html>

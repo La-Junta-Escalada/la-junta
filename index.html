@@ -167,12 +167,14 @@
     }
 
     .hero-subtitle {
-      font-weight: 400;
-      font-size: clamp(17px, 2.2vw, 20px);
+      font-weight: 500;
+      font-size: clamp(13px, 1.7vw, 16px);
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
       color: rgba(255,255,255,0.70);
-      max-width: 520px;
+      max-width: 560px;
       margin: 0 auto 40px;
-      line-height: 1.6;
+      line-height: 1.8;
     }
 
     .btn-primary {
@@ -197,8 +199,10 @@
 
     .hero-counter {
       margin-top: 20px;
-      font-size: 15px;
-      font-weight: 400;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
       color: rgba(255,255,255,0.50);
     }
 
@@ -239,9 +243,10 @@
       position: absolute;
       inset: 0;
       background-image: url('assets/texturas/textura-01.png');
-      background-size: cover;
+      background-size: 300%;
+      background-repeat: no-repeat;
       background-position: center;
-      opacity: 0.06;
+      opacity: 0.10;
       z-index: 0;
     }
 
@@ -296,9 +301,10 @@
       position: absolute;
       inset: 0;
       background-image: url('assets/texturas/textura-02.png');
-      background-size: cover;
+      background-size: 300%;
+      background-repeat: no-repeat;
       background-position: center;
-      opacity: 0.08;
+      opacity: 0.12;
       z-index: 0;
     }
 
@@ -383,6 +389,14 @@
     .pilar-blue   { background: var(--color-blue); }
     .pilar-teal   { background: var(--color-teal); }
 
+    .pilar-icono {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      margin-bottom: 28px;
+      filter: brightness(0) invert(1);
+    }
+
     .pilar-titulo {
       font-weight: 700;
       font-size: 22px;
@@ -404,19 +418,9 @@
     ============================================ */
     .seccion-para-quienes {
       position: relative;
-      background: var(--color-darker);
+      background: var(--color-dark);
       padding: 120px 24px;
       overflow: hidden;
-    }
-
-    /* Forma decorativa — 1 forma, esquina superior derecha */
-    .seccion-para-quienes .forma-deco {
-      position: absolute;
-      top: -20px;
-      right: -40px;
-      width: 300px;
-      z-index: 0;
-      pointer-events: none;
     }
 
     .para-quienes-titulo {
@@ -436,29 +440,61 @@
       z-index: 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px;
+      gap: 28px;
       max-width: 960px;
       margin: 0 auto;
     }
 
-    .para-quienes-bloque {
-      border-top: 2px solid;
-      padding-top: 32px;
+    .para-quienes-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 52px;
+      min-height: 340px;
     }
 
-    .para-quienes-bloque:nth-child(1) {
-      border-color: var(--color-orange);
+    .para-quienes-card--dark  { background: #282828; }
+    .para-quienes-card--cream { background: #eae5dc; }
+
+    .para-quienes-forma {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 130%;
+      height: 130%;
+      object-fit: contain;
+      pointer-events: none;
     }
 
-    .para-quienes-bloque:nth-child(2) {
-      border-color: var(--color-teal);
+    .para-quienes-card--dark .para-quienes-forma {
+      opacity: 0.07;
+      filter: brightness(0) invert(1);
     }
 
-    .para-quienes-bloque p {
+    .para-quienes-card--cream .para-quienes-forma {
+      opacity: 0.07;
+      filter: brightness(0);
+    }
+
+    .para-quienes-texto {
+      position: relative;
+      z-index: 1;
       font-weight: 400;
-      font-size: clamp(17px, 2vw, 20px);
-      color: rgba(255,255,255,0.80);
+      font-size: clamp(17px, 1.8vw, 20px);
       line-height: 1.75;
+      text-align: center;
+    }
+
+    .para-quienes-card--dark  .para-quienes-texto { color: #eae5dc; }
+    .para-quienes-card--cream .para-quienes-texto { color: #282828; }
+
+    .seccion-titulo-grande {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: 0.05em;
     }
 
     /* ============================================
@@ -566,9 +602,10 @@
       position: absolute;
       inset: 0;
       background-image: url('assets/texturas/textura-01.png');
-      background-size: cover;
+      background-size: 300%;
+      background-repeat: no-repeat;
       background-position: center;
-      opacity: 0.05;
+      opacity: 0.09;
       z-index: 0;
     }
 
@@ -792,7 +829,12 @@
 
       .para-quienes-grid {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 20px;
+      }
+
+      .para-quienes-card {
+        padding: 52px 36px;
+        min-height: 260px;
       }
 
       .fundadores-grid {
@@ -858,7 +900,7 @@
       <p class="hero-eyebrow">Puerto Varas · Verano 2027</p>
       <h1 class="hero-headline">Construyendo<br>condiciones.</h1>
       <p class="hero-subtitle">Un espacio para escalar, entrenar, aprender y encontrarse. Todo el año, sin importar el tiempo.</p>
-      <a href="#formulario" class="btn-primary">Quiero ser miembro fundador</a>
+      <a href="#formulario" class="btn-primary">Me interesa ser parte</a>
       <p class="hero-counter"><span id="contador">0</span> miembros fundadores ya forman parte.</p>
     </div>
 
@@ -909,18 +951,21 @@
 
       <!-- Pilar 1: Continuidad -->
       <div class="pilar pilar-orange reveal" data-delay="0">
+        <img src="assets/iconos/icono-continuidad.png" alt="" class="pilar-icono">
         <h3 class="pilar-titulo">Continuidad<br>todo el año</h3>
         <p class="pilar-desc">Diseñado para que el pronóstico no decida cuándo puedes avanzar.</p>
       </div>
 
       <!-- Pilar 2: Formación -->
       <div class="pilar pilar-blue reveal" data-delay="150">
+        <img src="assets/iconos/icono-metodo.png" alt="" class="pilar-icono">
         <h3 class="pilar-titulo">Formación<br>con método</h3>
         <p class="pilar-desc">Clases, boulders y progresiones pensadas para avanzar con criterio: desde quienes están partiendo hasta quienes buscan objetivos más técnicos.</p>
       </div>
 
       <!-- Pilar 3: El Refugio -->
       <div class="pilar pilar-teal reveal" data-delay="300">
+        <img src="assets/iconos/icono-refugio.png" alt="" class="pilar-icono">
         <h3 class="pilar-titulo">Un refugio</h3>
         <p class="pilar-desc">Un lugar donde quedarse. Escales o no, el espacio te recibe.</p>
       </div>
@@ -932,17 +977,16 @@
        SECCIÓN PARA QUIENES
   ============================================ -->
   <section class="seccion-para-quienes">
-    <!-- Forma decorativa: 1 forma, esquina superior derecha -->
-    <img src="assets/formas/forma-06.png" alt="" class="forma-deco" aria-hidden="true">
-
     <h2 class="para-quienes-titulo reveal">La Junta es para ti si…</h2>
 
     <div class="para-quienes-grid">
-      <div class="para-quienes-bloque reveal" data-delay="0">
-        <p>Ya escalas o quieres partir. Aquí hay continuidad, método y una comunidad con quien crecer.</p>
+      <div class="para-quienes-card para-quienes-card--dark reveal" data-delay="0">
+        <img src="assets/formas/forma-02.png" alt="" class="para-quienes-forma" aria-hidden="true">
+        <p class="para-quienes-texto">Ya escalas o quieres partir. Aquí hay continuidad, método y una comunidad con quien crecer.</p>
       </div>
-      <div class="para-quienes-bloque reveal" data-delay="150">
-        <p>Vienes con familia — a escalar, acompañar o simplemente estar (¿y tomarte un café?). El espacio está pensado para eso.</p>
+      <div class="para-quienes-card para-quienes-card--cream reveal" data-delay="150">
+        <img src="assets/formas/forma-02.png" alt="" class="para-quienes-forma" aria-hidden="true">
+        <p class="para-quienes-texto">Vienes con familia — a escalar, acompañar o simplemente estar (¿y tomarte un café?). El espacio está pensado para eso.</p>
       </div>
     </div>
   </section>
@@ -954,7 +998,7 @@
     <!-- Forma decorativa: 1 forma, lado derecho -->
     <img src="assets/formas/forma-17.png" alt="" class="forma-deco" aria-hidden="true">
 
-    <p class="seccion-titulo seccion-titulo-claro reveal" style="margin-bottom: 72px;">Quiénes lo construyen</p>
+    <p class="seccion-titulo seccion-titulo-claro seccion-titulo-grande reveal" style="margin-bottom: 72px;">Quiénes lo construyen</p>
 
     <div class="fundadores-grid">
 

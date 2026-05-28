@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Junta — Centro de Escalada · Puerto Varas</title>
+  <meta name="description" content="Centro de escalada para entrenar, aprender y encontrarse. Todo el año, sin importar el tiempo. Puerto Varas, verano 2027.">
+  <meta property="og:title" content="La Junta — Centro de Escalada · Puerto Varas">
+  <meta property="og:description" content="Centro de escalada para entrenar, aprender y encontrarse. Todo el año, sin importar el tiempo. Verano 2027.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/fotos/foto-01.jpg">
+  <meta name="theme-color" content="#2E2E2E">
+
+  <style>
+    /* ============================================
+       FUENTE Y VARIABLES
+    ============================================ */
+    @font-face {
+      font-family: 'Space Grotesk';
+      src: url('assets/fonts/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --color-dark: #2E2E2E;
+      --color-darker: #1A1A1A;
+      --color-cream: #EAE5DC;
+      --color-orange: #C97C2A;
+      --color-teal: #2EAD82;
+      --color-blue: #3A8FB5;
+      --color-white: #FFFFFF;
+    }
+
+    /* ============================================
+       RESET Y BASE
+    ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--color-dark);
+      color: var(--color-white);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================
+       NAVBAR
+    ============================================ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      transition: background 300ms ease, padding 300ms ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(26,26,26,0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 14px 40px;
+    }
+
+    /* Logo desktop: horizontal. Logo mobile: isotipo */
+    .navbar-logo-desktop { display: block; height: 32px; width: auto; }
+    .navbar-logo-mobile  { display: none;  height: 36px; width: auto; }
+
+    .navbar-ig {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 15px;
+      color: rgba(255,255,255,0.80);
+      transition: color 200ms ease;
+    }
+    .navbar-ig:hover { color: var(--color-white); }
+
+    /* ============================================
+       HERO
+    ============================================ */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100dvh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26,26,26,0.68);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 24px;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      font-weight: 600;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 16px;
+    }
+
+    .hero-headline {
+      font-weight: 700;
+      font-size: clamp(44px, 8vw, 88px);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--color-white);
+      margin-bottom: 28px;
+    }
+
+    .hero-subtitle {
+      font-weight: 400;
+      font-size: clamp(17px, 2.2vw, 20px);
+      color: rgba(255,255,255,0.70);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.65;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--color-orange);
+      color: var(--color-white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 18px 44px;
+      border: none;
+      cursor: pointer;
+      transition: filter 200ms ease, transform 200ms ease;
+    }
+    .btn-primary:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+    }
+
+    /* CAMBIO: uppercase + letter-spacing */
+    .hero-counter {
+      margin-top: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: rgba(255,255,255,0.50);
+    }
+
+    .hero-arrow {
+      position: absolute;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      cursor: pointer;
+      color: rgba(255,255,255,0.50);
+      animation: bounce 2s infinite;
+      transition: color 200ms ease;
+    }
+    .hero-arrow:hover { color: rgba(255,255,255,0.80); }
+
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ============================================
+       SECCIÓN PROBLEMA
+    ============================================ */
+    .seccion-problema {
+      position: relative;
+      background: var(--color-cream);
+      padding: 140px 24px;
+      overflow: hidden;
+    }
+
+    /* CAMBIO: zoom-in 300%, sin repetición */
+    .seccion-problema::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/texturas/textura-01.png');
+      background-size: 300%;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.10;
+      z-index: 0;
+    }
+
+    .problema-contenido {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .problema-frase {
+      font-weight: 700;
+      font-size: clamp(22px, 3.2vw, 36px);
+      line-height: 1.25;
+      color: var(--color-darker);
+      text-align: left;
+      padding-left: 28px;
+      border-left: 3px solid var(--color-orange);
+    }
+
+    .problema-frase:nth-child(2) { border-left-color: var(--color-blue); }
+    .problema-frase:nth-child(3) { border-left-color: var(--color-teal); }
+
+    /* ============================================
+       SECCIÓN PUENTE
+    ============================================ */
+    .seccion-puente {
+      position: relative;
+      background: var(--color-dark);
+      min-height: 65vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 80px 24px;
+    }
+
+    /* CAMBIO: zoom-in 300%, sin repetición */
+    .seccion-puente::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/texturas/textura-02.png');
+      background-size: 300%;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.12;
+      z-index: 0;
+    }
+
+    /* 1 forma por sección */
+    .forma-deco {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .seccion-puente .forma-deco {
+      bottom: -40px;
+      right: -60px;
+      width: 380px;
+    }
+
+    .puente-contenido {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .puente-linea1 {
+      font-weight: 400;
+      font-size: clamp(18px, 2.5vw, 26px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.60);
+      margin-bottom: 12px;
+    }
+
+    .puente-linea2 {
+      font-weight: 700;
+      font-size: clamp(36px, 7vw, 76px);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--color-white);
+    }
+
+    /* ============================================
+       SECCIÓN PILARES
+    ============================================ */
+    .seccion-pilares {
+      position: relative;
+      background: var(--color-cream);
+      padding: 120px 24px 140px;
+      overflow: hidden;
+    }
+
+    .seccion-titulo {
+      font-weight: 600;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .seccion-titulo-oscuro { color: rgba(26,26,26,0.50); }
+    .seccion-titulo-claro  { color: rgba(255,255,255,0.45); }
+
+    /* CAMBIO: título fundadores más grande */
+    .seccion-titulo-grande {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .pilares-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Polígono estilo forma-02 */
+    .pilar {
+      position: relative;
+      padding: 48px 40px 84px;
+      clip-path: polygon(6% 0%, 100% 0%, 96% 80%, 84% 100%, 0% 92%);
+      min-height: 360px;
+      overflow: hidden;
+    }
+
+    .pilar-orange { background: var(--color-orange); }
+    .pilar-blue   { background: var(--color-blue); }
+    .pilar-teal   { background: var(--color-teal); }
+
+    .pilar-icono {
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      margin-bottom: 28px;
+      filter: brightness(0) invert(1);
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .pilar-titulo {
+      font-weight: 700;
+      font-size: 21px;
+      text-transform: uppercase;
+      color: var(--color-white);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+
+    .pilar-desc {
+      font-weight: 400;
+      font-size: 17px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       SECCIÓN PARA QUIENES
+    ============================================ */
+    .seccion-para-quienes {
+      position: relative;
+      background: var(--color-darker);
+      padding: 120px 24px;
+      overflow: hidden;
+    }
+
+    .para-quienes-titulo {
+      position: relative;
+      z-index: 1;
+      font-weight: 700;
+      font-size: clamp(28px, 4.5vw, 50px);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      text-align: center;
+      color: var(--color-white);
+      margin-bottom: 72px;
+    }
+
+    .para-quienes-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .para-quienes-bloque {
+      border-top: 3px solid;
+      padding-top: 32px;
+    }
+
+    .para-quienes-bloque:nth-child(1) { border-color: var(--color-orange); }
+    .para-quienes-bloque:nth-child(2) { border-color: var(--color-teal); }
+
+    .para-quienes-bloque p {
+      font-weight: 400;
+      font-size: clamp(17px, 1.8vw, 20px);
+      color: rgba(255,255,255,0.90);
+      line-height: 1.75;
+    }
+
+    /* ============================================
+       SECCIÓN FUNDADORES
+    ============================================ */
+    .seccion-fundadores {
+      position: relative;
+      background: var(--color-dark);
+      padding: 120px 24px;
+      overflow: hidden;
+    }
+
+    .seccion-fundadores .forma-deco {
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 300px;
+    }
+
+    .fundadores-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .fundador-foto {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 50%; /* circular */
+      margin-bottom: 28px;
+      background: #3A3A3A;
+    }
+
+    .fundador-foto-placeholder {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background: #3A3A3A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.25);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 28px;
+    }
+
+    .fundador-nombre {
+      font-weight: 700;
+      font-size: 19px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-white);
+      margin-bottom: 14px;
+    }
+
+    .fundador-bio {
+      font-weight: 400;
+      font-size: 17px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+    }
+
+    .fundadores-cierre {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 72px auto 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 48px;
+    }
+
+    .fundadores-cierre p {
+      font-weight: 700;
+      font-size: clamp(17px, 2vw, 20px);
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.70);
+      line-height: 1.6;
+      letter-spacing: 0.03em;
+    }
+
+    /* ============================================
+       SECCIÓN FORMULARIO
+    ============================================ */
+    .seccion-formulario {
+      position: relative;
+      background: var(--color-darker);
+      padding: 140px 24px;
+      overflow: hidden;
+    }
+
+    /* CAMBIO: zoom-in 300%, sin repetición */
+    .seccion-formulario::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/texturas/textura-01.png');
+      background-size: 300%;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.09;
+      z-index: 0;
+    }
+
+    .seccion-formulario .forma-deco {
+      left: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 260px;
+    }
+
+    .formulario-contenido {
+      position: relative;
+      z-index: 2;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .formulario-headline {
+      font-weight: 700;
+      font-size: clamp(32px, 5vw, 54px);
+      text-transform: uppercase;
+      line-height: 1.05;
+      color: var(--color-white);
+      margin-bottom: 24px;
+    }
+
+    .formulario-subtexto {
+      font-weight: 400;
+      font-size: 18px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin-bottom: 52px;
+    }
+
+    .form-group { margin-bottom: 36px; }
+
+    .form-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      color: var(--color-white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      padding: 16px 0;
+      outline: none;
+      transition: border-color 200ms ease;
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.30); }
+    .form-input:focus { border-bottom-color: var(--color-teal); }
+
+    .btn-formulario {
+      width: 100%;
+      background: var(--color-orange);
+      color: var(--color-white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 20px;
+      border: none;
+      cursor: pointer;
+      transition: filter 200ms ease;
+    }
+    .btn-formulario:hover:not(:disabled) { filter: brightness(1.12); }
+    .btn-formulario:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form-nota {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      margin-top: 18px;
+    }
+
+    .form-exito {
+      display: none;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--color-teal);
+      line-height: 1.5;
+      animation: fadeIn 500ms ease;
+    }
+
+    .form-error {
+      display: none;
+      text-align: center;
+      font-size: 16px;
+      color: #E07070;
+      margin-top: 16px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .footer {
+      background: var(--color-dark);
+      border-top: 1px solid rgba(255,255,255,0.10);
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-logo img { height: 28px; width: auto; }
+
+    .footer-centro {
+      font-weight: 400;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.40);
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .footer-ig {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      transition: color 200ms ease;
+    }
+    .footer-ig:hover { color: var(--color-white); }
+
+    /* ============================================
+       ANIMACIONES SCROLL
+    ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 900px) {
+      .pilares-grid { grid-template-columns: 1fr 1fr; }
+      .pilar:last-child { grid-column: 1 / -1; max-width: 480px; margin: 0 auto; }
+    }
+
+    @media (max-width: 700px) {
+      /* Logo: isotipo en mobile */
+      .navbar-logo-desktop { display: none; }
+      .navbar-logo-mobile  { display: block; }
+
+      .navbar { padding: 16px 20px; }
+      .navbar.scrolled { padding: 12px 20px; }
+
+      /* Formas decorativas: ocultar en mobile */
+      .forma-deco { display: none; }
+
+      .seccion-problema  { padding: 80px 20px; }
+      .seccion-puente    { padding: 72px 20px; }
+      .seccion-pilares   { padding: 72px 20px 100px; }
+      .seccion-para-quienes { padding: 72px 20px; }
+      .seccion-fundadores   { padding: 72px 20px; }
+      .seccion-formulario   { padding: 80px 20px; }
+      .footer { padding: 40px 20px; }
+
+      .pilares-grid { grid-template-columns: 1fr; }
+      .pilar:last-child { grid-column: auto; max-width: none; }
+      .pilar {
+        clip-path: polygon(4% 0%, 100% 0%, 97% 84%, 86% 100%, 0% 93%);
+        min-height: auto;
+        padding: 40px 32px 68px;
+      }
+
+      .para-quienes-grid  { grid-template-columns: 1fr; gap: 36px; }
+      .fundadores-grid    { grid-template-columns: 1fr; gap: 52px; }
+
+      .footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-eyebrow { font-size: 12px; letter-spacing: 0.12em; }
+      .btn-primary  { padding: 16px 28px; font-size: 13px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================
+       NAVBAR
+  ============================================ -->
+  <nav class="navbar" id="navbar">
+    <a href="#">
+      <!-- Desktop: logo horizontal -->
+      <img src="assets/logo/logo-blanco-horizontal.png" alt="La Junta" class="navbar-logo-desktop">
+      <!-- Mobile: solo isotipo -->
+      <img src="assets/logo/isotipo-blanco.png" alt="La Junta" class="navbar-logo-mobile">
+    </a>
+    <a href="https://www.instagram.com/lajuntaescalada/" target="_blank" rel="noopener" class="navbar-ig">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      </svg>
+      @lajuntaescalada
+    </a>
+  </nav>
+
+  <!-- ============================================
+       HERO
+  ============================================ -->
+  <section class="hero">
+    <video id="hero-video" class="hero-video" muted playsinline poster="assets/fotos/foto-01.jpg">
+      <source src="assets/videos/render-edificio.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Puerto Varas · Verano 2027</p>
+      <h1 class="hero-headline">Construyendo<br>condiciones</h1>
+      <p class="hero-subtitle">Centro de escalada para entrenar, aprender y encontrarse.<br>Todo el año, sin importar el tiempo.</p>
+      <a href="#formulario" class="btn-primary">Me interesa ser parte</a>
+      <p class="hero-counter"><span id="contador">0</span> miembros fundadores ya forman parte.</p>
+    </div>
+
+    <div class="hero-arrow" onclick="document.querySelector('.seccion-problema').scrollIntoView({behavior:'smooth'})" aria-label="Bajar">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN PROBLEMA
+  ============================================ -->
+  <section class="seccion-problema">
+    <div class="problema-contenido">
+      <p class="problema-frase reveal" data-delay="0">
+        Llevas años escalando en espacios que no están a la altura de tu dedicación.
+      </p>
+      <p class="problema-frase reveal" data-delay="150">
+        Quisiste empezar, pero no encontraste un lugar que te diera ganas de entrar.
+      </p>
+      <p class="problema-frase reveal" data-delay="300">
+        Acompañas a quien escala, pero el espacio nunca estuvo pensado para ti.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN PUENTE
+  ============================================ -->
+  <section class="seccion-puente">
+    <img src="assets/formas/forma-04.png" alt="" class="forma-deco" aria-hidden="true">
+    <div class="puente-contenido">
+      <p class="puente-linea1 reveal">No construimos un lugar de paso.</p>
+      <p class="puente-linea2 reveal" data-delay="300">Construimos un lugar<br>para quedarse.</p>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN PILARES
+  ============================================ -->
+  <section class="seccion-pilares">
+    <p class="seccion-titulo seccion-titulo-oscuro reveal">Nuestros pilares</p>
+
+    <div class="pilares-grid">
+
+      <div class="pilar pilar-orange reveal" data-delay="0">
+        <img src="assets/iconos/icono-continuidad.png" alt="" class="pilar-icono">
+        <h3 class="pilar-titulo">Continuidad<br>todo el año</h3>
+        <p class="pilar-desc">Diseñado para que el pronóstico no decida cuándo puedes avanzar.</p>
+      </div>
+
+      <div class="pilar pilar-blue reveal" data-delay="150">
+        <img src="assets/iconos/icono-metodo.png" alt="" class="pilar-icono">
+        <h3 class="pilar-titulo">Formación<br>con método</h3>
+        <p class="pilar-desc">Clases y propuestas pensadas con intención para que cada persona pueda mejorar, independiente de su nivel.</p>
+      </div>
+
+      <div class="pilar pilar-teal reveal" data-delay="300">
+        <img src="assets/iconos/icono-refugio.png" alt="" class="pilar-icono">
+        <h3 class="pilar-titulo">El refugio</h3>
+        <p class="pilar-desc">Un lugar donde quedarse. Escales o no, el espacio te recibe.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN PARA QUIENES
+  ============================================ -->
+  <section class="seccion-para-quienes">
+    <h2 class="para-quienes-titulo reveal">La Junta es para ti si…</h2>
+
+    <div class="para-quienes-grid">
+      <div class="para-quienes-bloque reveal" data-delay="0">
+        <p>Ya escalas o quieres partir. Aquí hay continuidad, método y una comunidad con quien crecer.</p>
+      </div>
+      <div class="para-quienes-bloque reveal" data-delay="150">
+        <p>Vienes con familia a escalar, acompañar, trabajar o simplemente tomarte un café. El espacio está pensado para eso.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN FUNDADORES
+  ============================================ -->
+  <section class="seccion-fundadores">
+    <img src="assets/formas/forma-17.png" alt="" class="forma-deco" aria-hidden="true">
+
+    <p class="seccion-titulo seccion-titulo-claro seccion-titulo-grande reveal" style="margin-bottom:72px;">Fundadores</p>
+
+    <div class="fundadores-grid">
+
+      <div class="reveal" data-delay="0">
+        <img
+          src="assets/fotos/foto-paul.jpg"
+          alt="Paul Behrens Varela"
+          class="fundador-foto"
+          loading="lazy"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+        >
+        <div class="fundador-foto-placeholder" style="display:none;">Paul B.</div>
+        <h3 class="fundador-nombre">Paul Behrens Varela</h3>
+        <p class="fundador-bio">Escalador hace 14 años. Presidente del Club Montaña y Escalada de Puerto Varas. Transmite su experiencia formando escaladores con atención en leer procesos, cuidar el ritmo de cada persona y entender que progresar necesita más que motivación.</p>
+      </div>
+
+      <div class="reveal" data-delay="150">
+        <img
+          src="assets/fotos/foto-juan.jpg"
+          alt="Juan Rozas Andreu"
+          class="fundador-foto"
+          loading="lazy"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+        >
+        <div class="fundador-foto-placeholder" style="display:none;">Juan R.</div>
+        <h3 class="fundador-nombre">Juan Rozas Andreu</h3>
+        <p class="fundador-bio">Escalador hace 16 años, Campeón Regional de Boulder 2024 y padre de dos niños. Su camino en la escalada ha estado marcado por lesiones, pausas, vueltas al deporte y el intento de sostenerlo junto al trabajo y la familia. Desde esa experiencia surge La Junta: que escalar pueda calzar mejor con la vida real.</p>
+      </div>
+
+    </div>
+
+    <div class="fundadores-cierre reveal">
+      <p>Una idea simple: construir el espacio que a nosotros nos habría gustado tener en Puerto Varas.</p>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN FORMULARIO
+  ============================================ -->
+  <section class="seccion-formulario" id="formulario">
+    <img src="assets/formas/forma-01.png" alt="" class="forma-deco" aria-hidden="true">
+
+    <div class="formulario-contenido">
+      <h2 class="formulario-headline reveal">Sé parte<br>desde el día 0.</h2>
+      <p class="formulario-subtexto reveal" data-delay="150">Beneficios de lanzamiento, invitaciones especiales e información anticipada. Cupos limitados.</p>
+
+      <form id="form-fundador" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST">
+        <input type="hidden" name="_subject" value="Nuevo Miembro Fundador - La Junta">
+
+        <div class="form-group">
+          <input type="text" name="name" class="form-input" placeholder="Tu nombre" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" class="form-input" placeholder="Tu correo electrónico" required autocomplete="email">
+        </div>
+
+        <button type="submit" class="btn-formulario" id="btn-submit">
+          Me interesa ser miembro pionero
+        </button>
+
+        <p class="form-nota">Sin spam. Solo avances reales del proyecto.</p>
+        <p class="form-error" id="form-error">Algo salió mal. Intenta de nuevo.</p>
+      </form>
+
+      <div class="form-exito" id="form-exito">
+        Listo. Pronto recibirás los avances de La Junta.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <img src="assets/logo/logo-blanco-horizontal.png" alt="La Junta">
+    </div>
+    <div class="footer-centro">
+      <div>Puerto Varas — Línea Nueva</div>
+      <div>Verano 2027</div>
+    </div>
+    <a href="https://www.instagram.com/lajuntaescalada/" target="_blank" rel="noopener" class="footer-ig">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      </svg>
+      @lajuntaescalada
+    </a>
+  </footer>
+
+  <!-- ============================================
+       JAVASCRIPT
+  ============================================ -->
+  <script>
+    // ---- CONSTANTES EDITABLES ----
+    const waitlistCount = 47;
+    const FORMSPREE_ID = 'REPLACE_WITH_YOUR_ID';
+
+    // ---- VIDEO HERO EN LOOP ----
+    const heroVideos = [
+      'assets/videos/render-edificio.mp4',
+      'assets/videos/render-escalada.mp4',
+      'assets/videos/render-terraza.mp4',
+      'assets/videos/render-camara.mp4'
+    ];
+    let currentVideoIndex = 0;
+    const videoEl = document.getElementById('hero-video');
+
+    videoEl.addEventListener('ended', () => {
+      currentVideoIndex = (currentVideoIndex + 1) % heroVideos.length;
+      videoEl.src = heroVideos[currentVideoIndex];
+      videoEl.play().catch(() => {});
+    });
+    videoEl.src = heroVideos[0];
+    videoEl.play().catch(() => {});
+
+    // ---- CONTADOR ANIMADO ----
+    function animarContador(target, duracion) {
+      const el = document.getElementById('contador');
+      if (!el) return;
+      const start = performance.now();
+      function step(now) {
+        const p = Math.min((now - start) / duracion, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(e * target);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    window.addEventListener('load', () => setTimeout(() => animarContador(waitlistCount, 1500), 500));
+
+    // ---- NAVBAR SCROLL ----
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    // ---- ANIMACIONES SCROLL ----
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = parseInt(entry.target.dataset.delay || 0);
+          setTimeout(() => entry.target.classList.add('visible'), delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ---- FORMULARIO ----
+    const form       = document.getElementById('form-fundador');
+    const btnSubmit  = document.getElementById('btn-submit');
+    const formExito  = document.getElementById('form-exito');
+    const formError  = document.getElementById('form-error');
+
+    if (form) {
+      if (FORMSPREE_ID !== 'REPLACE_WITH_YOUR_ID') {
+        form.action = `https://formspree.io/f/${FORMSPREE_ID}`;
+      }
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        formError.style.display = 'none';
+        btnSubmit.textContent = 'Enviando...';
+        btnSubmit.disabled = true;
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            form.style.display = 'none';
+            formExito.style.display = 'block';
+          } else { throw new Error(); }
+        } catch {
+          formError.style.display = 'block';
+          btnSubmit.textContent = 'Me interesa ser miembro pionero';
+          btnSubmit.disabled = false;
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1134,7 +1134,7 @@
                 email: formData.get('email')
               }),
               headers: { 'Content-Type': 'application/json' }
-            })
+            }).catch(() => {})                
           ]);
           const data = await res.json();
           if (data.success) {
